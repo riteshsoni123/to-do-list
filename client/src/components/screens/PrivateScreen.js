@@ -23,24 +23,51 @@ const PrivateScreen = () => {
       };
 
       try {
-        const { data } = await axios.get("/api/private", config);
+        const { data } = await axios.get("/api/personal/private", config);
         setPrivateData(data);
-        setList(data.list);
+      } catch (error) {
+        localStorage.removeItem("authToken");
+        setError("You are not authorized please login");
+      }
+      try {
+        const { data } = await axios.get("/api/personal/getlist", config);
+        setList(data);
       } catch (error) {
         localStorage.removeItem("authToken");
         setError("You are not authorized please login");
       }
     };
     fetchPrivateData();
-  }, [navigate]);
+  }, []);
 
   const logoutHandler = () => {
     localStorage.removeItem("authToken");
     navigate("/login");
   };
 
-  const saveValue = (e) => {
+  const saveValue = async (e) => {
     e.preventDefault();
+
+    const config = {
+      headers: {
+        contentType: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    };
+
+    try {
+      const { data } = await axios.post(
+        "/api/personal/addelement",
+        { element: value },
+        config
+      );
+      setList(list.concat(data));
+      setValue("");
+    } catch (error) {
+      console.log("error");
+      localStorage.removeItem("authToken");
+      setError("You are not authorized please login");
+    }
   };
 
   return error ? (
@@ -50,7 +77,6 @@ const PrivateScreen = () => {
     </>
   ) : (
     <>
-      {/* {console.log(list)} */}
       <div>{privateData.email}</div>
       <div>{privateData.username}</div>
       <button onClick={logoutHandler}>Logout</button>
@@ -72,7 +98,7 @@ const PrivateScreen = () => {
 
       <div>
         {list.map((element) => {
-          return <div>{element}</div>;
+          return <div key={element._id}>{element.element}</div>;
         })}
       </div>
     </>

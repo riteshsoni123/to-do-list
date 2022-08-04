@@ -13,6 +13,7 @@ exports.protect = async (req, res, next) => {
   }
 
   if (!token) {
+    console.log("no token");
     return next(new ErrorResponse("Not authorized to access this route", 401));
   }
 
@@ -26,6 +27,7 @@ exports.protect = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
+    console.log("can't verify");
     return next(new ErrorResponse("Not authorized to access this route", 401));
   }
 };
