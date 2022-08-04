@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(Cors());
 
 app.use("/api/auth", require("./routes/auth"));
-app.use("/api/private", require("./routes/private"));
+app.use("/api/personal", require("./routes/personal"));
 
 const PORT = process.env.PORT || 5000;
 
