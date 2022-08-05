@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import axios from "../../axios";
 import { useNavigate } from "react-router-dom";
+import Element from "../Element";
 
 const PrivateScreen = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const PrivateScreen = () => {
       }
     };
     fetchPrivateData();
-  }, []);
+  }, [navigate]);
 
   const logoutHandler = () => {
     localStorage.removeItem("authToken");
@@ -70,6 +71,13 @@ const PrivateScreen = () => {
     }
   };
 
+  const deleteValue = (id) => {
+    const newList = list.filter((element) => {
+      return element._id !== id;
+    });
+    setList(newList);
+  };
+
   return error ? (
     <>
       {console.log(error)}
@@ -98,7 +106,7 @@ const PrivateScreen = () => {
 
       <div>
         {list.map((element) => {
-          return <div key={element._id}>{element.element}</div>;
+          return <Element key={element._id} data={{ element, deleteValue }} />;
         })}
       </div>
     </>

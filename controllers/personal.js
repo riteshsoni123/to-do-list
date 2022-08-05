@@ -32,3 +32,17 @@ exports.getList = async (req, res, next) => {
       .json({ success: false, message: "can't fond the notes for this user" });
   }
 };
+
+exports.deleteelement = async (req, res, next) => {
+  List.findByIdAndRemove(req.params.id, (err, doc) => {
+    if (!err) {
+      res.status(500).json({ success: true, message: "Deleted the item" });
+    } else {
+      res
+        .status(200)
+        .json({ success: false, message: "Can't delete the item" });
+    }
+  });
+};
+
+exports.editelement = async (req, res, next) => {};
