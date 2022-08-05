@@ -65,17 +65,31 @@ const PrivateScreen = () => {
       setList(list.concat(data));
       setValue("");
     } catch (error) {
-      console.log("error");
       localStorage.removeItem("authToken");
       setError("You are not authorized please login");
     }
   };
 
-  const deleteValue = (id) => {
-    const newList = list.filter((element) => {
-      return element._id !== id;
-    });
-    setList(newList);
+  const deleteValue = async (id) => {
+    const config = {
+      headers: {
+        contentType: "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    };
+
+    try {
+      await axios.post(`/api/personal/deleteelement/${id}`, {}, config);
+
+      const newList = list.filter((element) => {
+        return element._id !== id;
+      });
+
+      setList(newList);
+    } catch (error) {
+      localStorage.removeItem("authToken");
+      setError("You are not authorized please login");
+    }
   };
 
   return error ? (

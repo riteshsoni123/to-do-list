@@ -36,10 +36,10 @@ exports.getList = async (req, res, next) => {
 exports.deleteelement = async (req, res, next) => {
   List.findByIdAndRemove(req.params.id, (err, doc) => {
     if (!err) {
-      res.status(500).json({ success: true, message: "Deleted the item" });
+      res.status(200).json({ success: true, message: "Deleted the item" });
     } else {
       res
-        .status(200)
+        .status(500)
         .json({ success: false, message: "Can't delete the item" });
     }
   });
