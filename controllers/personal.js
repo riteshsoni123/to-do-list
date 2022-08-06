@@ -45,4 +45,18 @@ exports.deleteelement = async (req, res, next) => {
   });
 };
 
-exports.editelement = async (req, res, next) => {};
+exports.editelement = async (req, res, next) => {
+  List.findByIdAndUpdate(
+    req.params.id,
+    { element: req.body.element },
+    (err, docs) => {
+      if (!err) {
+        res.status(200).json({ success: true, message: "Deleted the item" });
+      } else {
+        res
+          .status(500)
+          .json({ success: false, message: "Can't delete the item" });
+      }
+    }
+  );
+};

@@ -17,6 +17,6 @@ router.route("/getlist").get(protect, getList);
 
 router.route("/deleteelement/:id").post(protect, deleteelement);
 
-router.route("/editelement").post(protect, editelement);
+router.route("/editelement/:id").post(protect, editelement);
 
 module.exports = router;

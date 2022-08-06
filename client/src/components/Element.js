@@ -2,7 +2,7 @@ import React from "react";
 
 const Element = (props) => {
   //   console.log(props);
-  const { element, deleteValue } = props.data;
+  const { element, deleteValue, updateModal, id } = props.data;
 
   return (
     <div>
@@ -10,14 +10,22 @@ const Element = (props) => {
       <span>
         <button
           onClick={() => {
-            deleteValue(element._id);
+            id.current = element._id;
+            deleteValue();
           }}
         >
           Delete
         </button>
       </span>
       <span>
-        <button>Edit</button>
+        <button
+          onClick={() => {
+            id.current = element._id;
+            updateModal();
+          }}
+        >
+          Edit
+        </button>
       </span>
     </div>
   );
