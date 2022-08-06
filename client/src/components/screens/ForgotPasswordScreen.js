@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "../../axios";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState("");
@@ -32,29 +34,29 @@ const ForgotPasswordScreen = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={forgotPasswordHandler}>
-        <h3>Forgot Password</h3>
-        {error && <span>{error}</span>}
-        {success && <span>{success}</span>}
-        <div>
-          <p>
-            Please enter the email address you register your your account with.
-            We will send you reset password confirmation to this email.
-          </p>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            required
-            id="email"
-            placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <button type="submit">Send Email</button>
-      </form>
-    </div>
+    <Form onSubmit={forgotPasswordHandler}>
+      <h3>Forgot Password</h3>
+      {error && <span>{error}</span>}
+      {success && <span>{success}</span>}
+      <Form.Group className="mb-3">
+        <p>
+          Please enter the email address you register your your account with. We
+          will send you reset password confirmation to this email.
+        </p>
+        <Form.Label>Email address</Form.Label>
+        <Form.Control
+          type="email"
+          placeholder="Enter email"
+          required
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Send reset password Link
+      </Button>
+    </Form>
   );
 };
 

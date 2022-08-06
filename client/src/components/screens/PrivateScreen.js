@@ -2,6 +2,8 @@ import { React, useState, useEffect, useRef } from "react";
 import axios from "../../axios";
 import { useNavigate } from "react-router-dom";
 import Element from "../Element";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const PrivateScreen = () => {
   const navigate = useNavigate();
@@ -142,41 +144,47 @@ const PrivateScreen = () => {
       <div>{privateData.username}</div>
       <button onClick={logoutHandler}>Logout</button>
 
-      <form onSubmit={saveValue}>
-        <span>
-          <label htmlFor="value">Input</label>
-          <input
+      <Form onSubmit={saveValue}>
+        <Form.Group className="mb-3">
+          <Form.Label>Add Element</Form.Label>
+          <Form.Control
             type="text"
+            placeholder="Add Item"
             required
             id="text"
-            placeholder="Enter to-do"
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
-        </span>
-        <button type="submit">Save</button>
-      </form>
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Add
+        </Button>
+      </Form>
 
       {modal ? (
-        <form onSubmit={editValue}>
-          <span>
-            <label htmlFor="newValue">Update Element</label>
-            <input
+        <Form onSubmit={editValue}>
+          <Form.Group className="mb-3">
+            <Form.Label>Edit Element</Form.Label>
+            <Form.Control
               type="text"
+              placeholder="Edit Item"
               required
               id="text"
-              placeholder="Enter to-do"
               value={newValue}
               onChange={(e) => setNewValue(e.target.value)}
             />
-          </span>
-          <button type="submit">Update</button>
-        </form>
+          </Form.Group>
+
+          <Button variant="primary" type="submit">
+            Save
+          </Button>
+        </Form>
       ) : (
         <></>
       )}
 
-      <div>
+      <div className="row my-3 mx-3">
         {list.map((element) => {
           return (
             <Element

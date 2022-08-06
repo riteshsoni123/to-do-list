@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "../../axios";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const ResetPasswordScreen = () => {
   const [password, setPassword] = useState("");
@@ -44,44 +46,46 @@ const ResetPasswordScreen = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={resetPasswordHandler}>
-        <h3>Reset Password</h3>
-        {error && <span>{error}</span>}
-        {success && (
-          <span>
-            {success}
-            <Link to="/login">Login</Link>
-          </span>
-        )}
-        <div>
-          <label htmlFor="password">New Password:</label>
-          <input
-            type="password"
-            required
-            id="password"
-            placeholder="Enter new password"
-            autoComplete="ture"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
+    <Form onSubmit={resetPasswordHandler}>
+      <h3>Reset Password</h3>
+      {error && <span>{error}</span>}
+      {success && (
+        <span>
+          {success}
+          <Link to="/login">Login</Link>
+        </span>
+      )}
 
-        <div>
-          <label htmlFor="confirmpassword">Confirm new Password:</label>
-          <input
-            type="password"
-            required
-            id="confirmpassword"
-            placeholder="Confirm new password"
-            autoComplete="ture"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit">Reset Password</button>
-      </form>
-    </div>
+      <Form.Group className="mb-3">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          required
+          id="password"
+          autoComplete="ture"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Confirm new password"
+          required
+          id="confirmpassword"
+          autoComplete="ture"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+      </Form.Group>
+
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 };
 

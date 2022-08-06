@@ -16,7 +16,7 @@ const sendEmail = (options) => {
     html: options.text,
   };
 
-  transporter.sendEmail(mailOptions, function (err, info) {
+  transporter.sendMail(mailOptions, function (err, info) {
     if (err) {
       console.log(err);
     } else {

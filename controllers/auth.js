@@ -12,30 +12,17 @@ exports.register = async (req, res, next) => {
       email,
       password,
     });
-
-    // res.status(201).json({
-    //   success: true,
-    //   token: "bazinga",
-    // });
     sendToken(user, 201, res);
   } catch (error) {
     next(error);
-    // res.status(500).json({
-    //   success: false,
-    //   error: error.message,
-    // });
   }
 };
 
 exports.login = async (req, res, next) => {
-  // console.log("bazinga");
   const { email, password } = req.body;
 
   if (!email || !password) {
     return next(new ErrorResponse("Please provide an email and password", 400));
-    // res
-    //   .status(400)
-    //   .json({ success: false, error: "Please provide email and password" });
   }
 
   try {
@@ -43,22 +30,13 @@ exports.login = async (req, res, next) => {
 
     if (!user) {
       return next(new ErrorResponse("Invalid Credentials", 401));
-      // res.status(404).json({ success: false, error: "Invalid Credentials" });
     }
 
     const isMatch = await user.matchPasswords(password);
 
     if (!isMatch) {
       return next(new ErrorResponse("Invalid Credentials", 401));
-      // return res
-      //   .status(404)
-      //   .json({ success: false, error: "Invalid credentials" });
     }
-
-    // res.status(200).json({
-    //   success: true,
-    //   token: "bazinga",
-    // });
     sendToken(user, 201, res);
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
