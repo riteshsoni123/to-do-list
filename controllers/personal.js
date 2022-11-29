@@ -51,11 +51,11 @@ exports.editelement = async (req, res, next) => {
     { element: req.body.element },
     (err, docs) => {
       if (!err) {
-        res.status(200).json({ success: true, message: "Deleted the item" });
+        res.status(200).json({ success: true, message: "Edited the item" });
       } else {
         res
           .status(500)
-          .json({ success: false, message: "Can't delete the item" });
+          .json({ success: false, message: "Can't edit the item" });
       }
     }
   );
